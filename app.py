@@ -14,8 +14,11 @@ def init_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS employie (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            age INTEGER NOT NULL
+            number_contract TEXT NOT NULL,
+            date_contract TEXT NOT NULL,
+            thomas_of_property TEXT NOT NULL,
+            name_of_the_organization TEXT NOT NULL,
+            abbreviated_name TEXT NOT NULL
         )
     ''')
     conn.commit()
@@ -24,18 +27,37 @@ def init_db():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        # id = request.form['id']
-        name = request.form['name']
-        age = request.form['age']
+        # Извлекаем данные напрямую из формы
+        number_contract = request.form['number_contract']
+        date_contract = request.form['date_contract']
+        thomas_of_property = request.form['thomas_of_property']
+        name_of_the_organization = request.form['name_of_the_organization']
+        abbreviated_name = request.form['abbreviated_name']
+
+        # name = request.form['name']
+        # age = request.form['age']
+
+        # Отладка: проверяем типы и значения
+        # print(f"Inserting: {number_contract}, {date_contract}, {name}, {age}")
+        # print(f"Types: {type(number_contract)}, {type(name)}, {type(age)}")
 
         conn = sqlite3.connect(DATABASE)
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO employie (name, age) VALUES ( ?, ?)", ( name, age))
-        conn.commit()
-        conn.close()
+        try:
+            cursor.execute(
+                "INSERT INTO employie (number_contract, date_contract, thomas_of_property, name_of_the_organization, abbreviated_name) VALUES (?, ?, ?, ?, ?)",
+                (number_contract, date_contract, thomas_of_property, name_of_the_organization, abbreviated_name)
+            )
+            conn.commit()
+            print("Record inserted successfully")
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
+            conn.rollback()
+        finally:
+            conn.close()
         return render_template("index.html")
-
     return render_template("index.html")
+
 
 @app.route('/employies')
 def employies():

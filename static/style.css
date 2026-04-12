@@ -62,12 +62,12 @@
 }
 
 .btn-edit {
-    background: #3498db;
+    background: #68b465;
     color: white;
 }
 
 .btn-delete {
-    background: #e74c3c;
+    background: #b1534a;
     color: white;
 }
 
@@ -189,7 +189,7 @@
 .submit-btn {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(135deg, #e3e5eb 0%, #707177 100%);
+    background: linear-gradient(135deg, #a9aaad 0%, #707177 100%);
     color: white;
     border: none;
     border-radius: 12px;

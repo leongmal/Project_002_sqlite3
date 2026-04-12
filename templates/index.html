@@ -3,43 +3,88 @@
 {% block body %}
 <div class="form-container">
     <div class="form-header">
-        <h2>👤 Add New Employee</h2>
-        <p>Fill in the details below to add a new employee</p>
+        <h2>👤 данные нового Договора</h2>
+        <!-- <p>Fill in the details below to add a new employee</p> -->
     </div>
 
     <form method="POST" class="employee-form">
         <div class="form-group">
-            <label for="name" class="form-label">
-                <i class="icon"></i>
-                Employee Name
+            <label for="number_contract" class="form-label">
+                <!-- <i class="icon"></i> -->
+                Номер договора
             </label>
             <input
                 type="text"
-                id="name"
-                name="name"
+                id="number_contract"
+                name="number_contract"
                 class="form-input"
-                placeholder="Enter employee's full name"
+                placeholder="номер договора 92100-ХХХЭА"
                 required
-                autocomplete="name"
+                autocomplete="off"
+            >
+            <span class="input-border"></span>
+            <label for="date_contract" class="form-label">
+                <!-- <i class="icon"></i> -->
+                Дата договора
+            </label>
+            <input
+                type="text"
+                id="date_contract"
+                name="date_contract"
+                class="form-input"
+                placeholder="дата договора 01.01.2026"
+                required
+                autocomplete="off"
+            >
+            <span class="input-border"></span>
+        </div>
+        <div class="form-group">
+            <label for="thomas_of_property" class="form-label">
+                <!-- <i class="icon"></i> -->
+                Форма собственности
+            </label>
+            <input
+                type="text"
+                id="thomas_of_property"
+                name="thomas_of_property"
+                class="form-input"
+                placeholder="форма соственности"
+                required
+                autocomplete="off"
             >
             <span class="input-border"></span>
         </div>
 
         <div class="form-group">
-            <label for="age" class="form-label">
-                <i class="icon"></i>
-                Age
+            <label for="name_of_the_organization" class="form-label">
+                <!-- <i class="icon"></i> -->
+                Наименование организации
             </label>
             <input
-                type="number"
-                id="age"
-                name="age"
+                type="text"
+                id="name_of_the_organization"
+                name="name_of_the_organization"
                 class="form-input"
-                placeholder="Enter age (18–100)"
-                min="18"
-                max="100"
+                placeholder="организация"
                 required
-                autocomplete="on"
+                autocomplete="off"
+            >
+            <span class="input-border"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="abbreviated_name" class="form-label">
+                <!-- <i class="icon"></i> -->
+                Сокращенное наименование организации
+            </label>
+            <input
+                type="text"
+                id="abbreviated_name"
+                name="abbreviated_name"
+                class="form-input"
+                placeholder="организация сокращенно"
+                required
+                autocomplete="off"
             >
             <span class="input-border"></span>
         </div>
