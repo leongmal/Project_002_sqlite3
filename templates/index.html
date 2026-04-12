@@ -1,9 +1,53 @@
 {% extends 'base.html' %}
+
 {% block body %}
-    <form method="POST">
-        
-        Name: <input type="text" name="name"/>
-        Age: <input type="number" name="age"/>
-        <input type="submit" value="Submit">
+<div class="form-container">
+    <div class="form-header">
+        <h2>👤 Add New Employee</h2>
+        <p>Fill in the details below to add a new employee</p>
+    </div>
+
+    <form method="POST" class="employee-form">
+        <div class="form-group">
+            <label for="name" class="form-label">
+                <i class="icon"></i>
+                Employee Name
+            </label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-input"
+                placeholder="Enter employee's full name"
+                required
+                autocomplete="name"
+            >
+            <span class="input-border"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="age" class="form-label">
+                <i class="icon"></i>
+                Age
+            </label>
+            <input
+                type="number"
+                id="age"
+                name="age"
+                class="form-input"
+                placeholder="Enter age (18–100)"
+                min="18"
+                max="100"
+                required
+                autocomplete="on"
+            >
+            <span class="input-border"></span>
+        </div>
+
+        <button type="submit" class="submit-btn">
+            <i class="btn-icon">✅</i>
+            Add Employee
+        </button>
     </form>
+</div>
 {% endblock %}

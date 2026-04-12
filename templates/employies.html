@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
+
 {% block body %}
-    <table border="1">
+<div class="employees-list">
+    <h2>Employee List</h2>
+
+    {% if employies %}
         {% for employie in employies %}
-        <tr>
-            <td>{{ employie['name'] }}</td>
-            <td>{{ employie['age'] }}</td>
-        </tr>
+        <div class="employee-card">
+            <div class="employee-info">
+                <span class="employee-name">{{ employie['name'] }}</span>
+                <span class="employee-age">{{ employie['age'] }} years old</span>
+            </div>
+            <div class="employee-actions">
+                <button class="btn-edit">Edit</button>
+                <button class="btn-delete">Delete</button>
+            </div>
+        </div>
         {% endfor %}
-    </table>
+    {% else %}
+        <p class="no-employees">No employees found. Add some using the form!</p>
+    {% endif %}
+</div>
 {% endblock %}
+
