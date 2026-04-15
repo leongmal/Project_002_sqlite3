@@ -18,7 +18,32 @@ def init_db():
             date_contract TEXT NOT NULL,
             thomas_of_property TEXT NOT NULL,
             name_of_the_organization TEXT NOT NULL,
-            abbreviated_name TEXT NOT NULL
+            abbreviated_name TEXT NOT NULL,
+            fio TEXT NOT NULL,
+            fioabbr TEXT NOT NULL,
+            rpfio TEXT NOT NULL,
+            position TEXT NOT NULL,
+            rpposition TEXT NOT NULL,
+            regulation TEXT NOT NULL,
+            legal_address TEXT NOT NULL,
+            physical_address TEXT NOT NULL,
+            mail TEXT NOT NULL,
+            phone_number TEXT NOT NULL,
+            inn INTEGER NOT NULL,
+            kpp INTEGER NOT NULL,
+            ogrn INTEGER NOT NULL,
+            okved INTEGER NOT NULL,
+            okpo INTEGER NOT NULL,
+            current_account INTEGER NOT NULL,
+            bank TEXT NOT NULL,
+            correspondent_account INTEGER NOT NULL,
+            bik INTEGER NOT NULL,
+            benefit TEXT NOT NULL,
+            additionally TEXT NOT NULL,
+            fioedo TEXT NOT NULL,
+            emailedo TEXT NOT NULL,
+            telephonedo TEXT NOT NULL,
+            operatoredo TEXT NOT NULL
         )
     ''')
     conn.commit()
@@ -28,14 +53,36 @@ def init_db():
 def index():
     if request.method == 'POST':
         # Извлекаем данные напрямую из формы
-        number_contract = request.form['number_contract']
-        date_contract = request.form['date_contract']
-        thomas_of_property = request.form['thomas_of_property']
-        name_of_the_organization = request.form['name_of_the_organization']
-        abbreviated_name = request.form['abbreviated_name']
-
-        # name = request.form['name']
-        # age = request.form['age']
+        number_contract= request.form['number_contract'],
+        date_contract= request.form['date_contract'],
+        thomas_of_property= request.form['thomas_of_property'],
+        name_of_the_organization= request.form['name_of_the_organization'],
+        abbreviated_name= request.form['abbreviated_name'],
+        fio= request.form['fio'],
+        fioabbr= request.form['fioabbr'],
+        rpfio= request.form['rpfio'],
+        position= request.form['position'],
+        rpposition= request.form['rpposition'],
+        regulation= request.form['regulation'],
+        legal_address= request.form['legal_address'],
+        physical_address= request.form['physical_address'],
+        mail= request.form['mail'],
+        phone_number= request.form['phone_number'],
+        inn= request.form['inn'],
+        kpp= request.form['kpp'],
+        ogrn= request.form['ogrn'],
+        okved= request.form['okved'],
+        okpo= request.form['okpo'],
+        current_account= request.form['current_account'],
+        bank= request.form['bank'],
+        correspondent_account= request.form['correspondent_account'],
+        bik= request.form['bik'],
+        benefit= request.form['benefit'],
+        additionally= request.form['additionally'],
+        fioedo= request.form['fioedo'],
+        emailedo= request.form['emailedo'],
+        telephonedo= request.form['telephonedo'],
+        operatoredo= request.form['operatoredo']
 
         # Отладка: проверяем типы и значения
         # print(f"Inserting: {number_contract}, {date_contract}, {name}, {age}")
@@ -45,8 +92,9 @@ def index():
         cursor = conn.cursor()
         try:
             cursor.execute(
-                "INSERT INTO employie (number_contract, date_contract, thomas_of_property, name_of_the_organization, abbreviated_name) VALUES (?, ?, ?, ?, ?)",
-                (number_contract, date_contract, thomas_of_property, name_of_the_organization, abbreviated_name)
+                "INSERT INTO employie (number_contract, date_contract, thomas_of_property, name_of_the_organization, abbreviated_name, fio, fioabbr, rpfio, position, rpposition, regulation, legal_address, physical_address, mail, phone_number, inn, kpp, ogrn, okved, okpo, current_account, bank, correspondent_account, bik, benefit, additionally, fioedo, emailedo, telephonedo, operatoredo) \
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (number_contract, date_contract, thomas_of_property, name_of_the_organization, abbreviated_name, fio, fioabbr, rpfio, position, rpposition, regulation, legal_address, physical_address, mail, phone_number, inn, kpp, ogrn, okved, okpo, current_account, bank, correspondent_account, bik, benefit, additionally, fioedo, emailedo, telephonedo, operatoredo)
             )
             conn.commit()
             print("Record inserted successfully")
