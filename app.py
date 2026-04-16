@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, get_flashed_messages
 import sqlite3
 import os
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'
 
 # Путь к базе данных
 DATABASE = 'employie.db'
@@ -84,9 +85,6 @@ def index():
         telephonedo= request.form['telephonedo']
         operatoredo= request.form['operatoredo']
 
-        # Отладка: проверяем типы и значения
-        # print(f"Inserting: {number_contract}, {date_contract}, {name}, {age}")
-        # print(f"Types: {type(number_contract)}, {type(name)}, {type(age)}")
 
         conn = sqlite3.connect(DATABASE)
         cursor = conn.cursor()
@@ -97,15 +95,19 @@ def index():
                 (number_contract, date_contract, thomas_of_property, name_of_the_organization, abbreviated_name, fio, fioabbr, rpfio, position, rpposition, regulation, legal_address, physical_address, mail, phone_number, inn, kpp, ogrn, okved, okpo, current_account, bank, correspondent_account, bik, benefit, additionally, fioedo, emailedo, telephonedo, operatoredo)
             )
             conn.commit()
+            flash('Данные внесены в базу!', 'success')
             print("Record inserted successfully")
         except sqlite3.Error as e:
             print(f"Error: {e}")
             conn.rollback()
+            flash('Ошибка при сохранении данных', 'error') 
         finally:
             conn.close()
-        return render_template("index.html")
-    return render_template("index.html")
+    #     return render_template("index.html")
+    # return render_template("index.html")
 
+    messages = get_flashed_messages(with_categories=True)
+    return render_template("index.html", messages=messages)
 
 @app.route('/employies')
 def employies():
