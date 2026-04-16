@@ -32,7 +32,7 @@ def init_db():
             inn INTEGER NOT NULL,
             kpp INTEGER NOT NULL,
             ogrn INTEGER NOT NULL,
-            okved INTEGER NOT NULL,
+            okved TEXT NOT NULL,
             okpo INTEGER NOT NULL,
             current_account INTEGER NOT NULL,
             bank TEXT NOT NULL,
@@ -53,35 +53,35 @@ def init_db():
 def index():
     if request.method == 'POST':
         # Извлекаем данные напрямую из формы
-        number_contract= request.form['number_contract'],
-        date_contract= request.form['date_contract'],
-        thomas_of_property= request.form['thomas_of_property'],
-        name_of_the_organization= request.form['name_of_the_organization'],
-        abbreviated_name= request.form['abbreviated_name'],
-        fio= request.form['fio'],
-        fioabbr= request.form['fioabbr'],
-        rpfio= request.form['rpfio'],
-        position= request.form['position'],
-        rpposition= request.form['rpposition'],
-        regulation= request.form['regulation'],
-        legal_address= request.form['legal_address'],
-        physical_address= request.form['physical_address'],
-        mail= request.form['mail'],
-        phone_number= request.form['phone_number'],
-        inn= request.form['inn'],
-        kpp= request.form['kpp'],
-        ogrn= request.form['ogrn'],
-        okved= request.form['okved'],
-        okpo= request.form['okpo'],
-        current_account= request.form['current_account'],
-        bank= request.form['bank'],
-        correspondent_account= request.form['correspondent_account'],
-        bik= request.form['bik'],
-        benefit= request.form['benefit'],
-        additionally= request.form['additionally'],
-        fioedo= request.form['fioedo'],
-        emailedo= request.form['emailedo'],
-        telephonedo= request.form['telephonedo'],
+        number_contract= request.form['number_contract']
+        date_contract= request.form['date_contract']
+        thomas_of_property= request.form['thomas_of_property']
+        name_of_the_organization= request.form['name_of_the_organization']
+        abbreviated_name= request.form['abbreviated_name']
+        fio= request.form['fio']
+        fioabbr= request.form['fioabbr']
+        rpfio= request.form['rpfio']
+        position= request.form['position']
+        rpposition= request.form['rpposition']
+        regulation= request.form['regulation']
+        legal_address= request.form['legal_address']
+        physical_address= request.form['physical_address']
+        mail= request.form['mail']
+        phone_number= request.form['phone_number']
+        inn= request.form['inn']
+        kpp= request.form['kpp']
+        ogrn= request.form['ogrn']
+        okved= request.form['okved']
+        okpo= request.form['okpo']
+        current_account= request.form['current_account']
+        bank= request.form['bank']
+        correspondent_account= request.form['correspondent_account']
+        bik= request.form['bik']
+        benefit= request.form['benefit']
+        additionally= request.form['additionally']
+        fioedo= request.form['fioedo']
+        emailedo= request.form['emailedo']
+        telephonedo= request.form['telephonedo']
         operatoredo= request.form['operatoredo']
 
         # Отладка: проверяем типы и значения
