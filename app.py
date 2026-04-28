@@ -121,8 +121,10 @@ def employees():
             flash('Таблица employee не найдена в базе данных')
             # return render_template('employees.html',employees=[])
                        
-
-        cursor.execute("SELECT * FROM employee")
+        # сотировка по id 
+        # cursor.execute("SELECT * FROM employee")
+        # вывод с сортировкой по имени 
+        cursor.execute("SELECT * FROM employee ORDER BY name_of_the_organization ASC")
         employees = cursor.fetchall()
 
         # conn.close()
