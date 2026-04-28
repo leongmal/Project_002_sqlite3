@@ -1,71 +1,66 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block body %}
 <div class="form-container">
     <div class="form-header">
-        <h2>Новый Договор
-                        <!-- Вывод сообщений -->    
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ 'error' if category == 'error' else 'success' }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    
-        <!-- <p>Fill in the details below to add a new employee</p> -->
-        </h2>
+        <h2>Редактирование договора № {{ employee['number_contract'] }}</h2>
 
+        <!-- Вывод сообщений -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }}">
+                {{ message }}
+            </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
 
     <form method="POST" class="employee-form">
         <div class="form-group">
-            <label for="number_contract" class="form-label">
-                <!-- <i class="icon"></i> -->
-                Номер договора
-            </label>
+            <label for="number_contract" class="form-label">Номер договора</label>
             <input
                 type="text"
                 id="number_contract"
                 name="number_contract"
                 class="form-input"
-                placeholder="формат--92100-ХХХЭА--"
-                required
-                autocomplete="off"
-            >
-            <span class="input-border"></span>
-            <label for="date_contract" class="form-label">
-                <!-- <i class="icon"></i> -->
-                Дата договора
-            </label>
-            <input
-                type="text"
-                id="date_contract"
-                name="date_contract"
-                class="form-input"
-                placeholder=" формат --01.01.2026--"
-                required
-                autocomplete="off"
-            >
-            <span class="input-border"></span>
-        </div>
-        <div class="form-group">
-            <label for="thomas_of_property" class="form-label">
-                <!-- <i class="icon"></i> -->
-                Форма собственности
-            </label>
-            <input
-                type="text"
-                id="thomas_of_property"
-                name="thomas_of_property"
-                class="form-input"
-                placeholder="--формат ООО---"
+                value="{{ employee['number_contract'] }}"
                 required
                 autocomplete="off"
             >
             <span class="input-border"></span>
         </div>
 
+        <div class="form-group">
+            <label for="date_contract" class="form-label">Дата договора</label>
+            <input
+                type="text"
+                id="date_contract"
+                name="date_contract"
+                class="form-input"
+                value="{{ employee['date_contract'] }}"
+                required
+                autocomplete="off"
+            >
+            <span class="input-border"></span>
+        </div>
+
+        <!-- Остальные поля формы (аналогично) -->
+
+        <div class="form-group">
+            <label for="thomas_of_property" class="form-label">Форма собственности</label>
+            <input
+                type="text"
+                id="thomas_of_property"
+                name="thomas_of_property"
+                class="form-input"
+                value="{{ employee['thomas_of_property'] }}"
+                required
+                autocomplete="off"
+            >
+            <span class="input-border"></span>
+        </div>
         <div class="form-group">
             <label for="name_of_the_organization" class="form-label">
                 <!-- <i class="icon"></i> -->
@@ -76,7 +71,7 @@
                 id="name_of_the_organization"
                 name="name_of_the_organization"
                 class="form-input"
-                placeholder="--организация--"
+                value="{{ employee['name_of_the_organization'] }}"
                 required
                 autocomplete="off"
             >
@@ -91,7 +86,7 @@
                 id ="abbreviated_name"
                 name="abbreviated_name"
                 class="form-input"
-                placeholder="--сокращенное фирменное наименование организации--"
+                value="{{ employee['abbreviated_name'] }}"
                 required
                 autocomplete ="off"
             >
@@ -106,7 +101,7 @@
                 id ="fio"
                 name="fio"
                 class="form-input"
-                placeholder="--ФИО руководителя--"
+                value="{{ employee['fio'] }}"
                 required
                 autocomplete ="off"
             >
@@ -121,7 +116,7 @@
                 id ="fioabbr"
                 name="fioabbr"
                 class="form-input"
-                placeholder="--сокращенное ФИО--"
+                value="{{ employee['fioabbr'] }}"
                 required
                 autocomplete ="off"
             >
@@ -136,7 +131,7 @@
                 id ="rpfio"
                 name="rpfio"
                 class="form-input"
-                placeholder="--фамилия имя отчестро в р.п. "Иванова Ивана .."
+                value="{{ employee['rpfio'] }}"
                 required
                 autocomplete ="off"
             >
@@ -151,7 +146,7 @@
                 id ="position"
                 name="position"
                 class="form-input"
-                placeholder="--Директор//Ген.директор--"
+                value="{{ employee['position'] }}"
                 required
                 autocomplete ="off"
             >
@@ -166,7 +161,7 @@
                 id ="rpposition"
                 name="rpposition"
                 class="form-input"
-                placeholder="--генерального директора//директора--"
+                value="{{ employee['rpposition'] }}"
                 required
                 autocomplete ="off"
             >
@@ -181,7 +176,7 @@
                 id ="regulation"
                 name="regulation"
                 class="form-input"
-                placeholder="--Устава//Доверенности--"
+                value="{{ employee['regulation'] }}"
                 required
                 autocomplete ="off"
             >
@@ -196,7 +191,7 @@
                 id ="legal_address"
                 name="legal_address"
                 class="form-input"
-                placeholder="--юридический адрес--"
+                value="{{ employee['legal_address'] }}"
                 required
                 autocomplete ="off"
             >
@@ -211,7 +206,7 @@
                 id ="physical_address"
                 name="physical_address"
                 class="form-input"
-                placeholder="--физический адрес--"
+                value="{{ employee['physical_address'] }}"
                 required
                 autocomplete ="off"
             >
@@ -226,7 +221,7 @@
                 id ="mail"
                 name="mail"
                 class="form-input"
-                placeholder="--email--"
+                value="{{ employee['mail'] }}"
                 required
                 autocomplete ="off"
             >
@@ -241,7 +236,7 @@
                 id ="phone_number"
                 name="phone_number"
                 class="form-input"
-                placeholder="--номер телефона--"
+                value="{{ employee['phone_number'] }}"
                 required
                 autocomplete ="off"
             >
@@ -256,7 +251,7 @@
                 id ="inn"
                 name="inn"
                 class="form-input"
-                placeholder="--формат цифры--"
+                value="{{ employee['inn'] }}"
                 required
                 autocomplete ="off"
             >
@@ -271,7 +266,7 @@
                 id ="kpp"
                 name="kpp"
                 class="form-input"
-                placeholder="--формат цифры--"
+                value="{{ employee['kpp'] }}"
                 required
                 autocomplete ="off"
             >
@@ -286,7 +281,7 @@
                 id ="ogrn"
                 name="ogrn"
                 class="form-input"
-                placeholder="--формат цифры--"
+                value="{{ employee['ogrn'] }}"
                 required
                 autocomplete ="off"
             >
@@ -301,7 +296,7 @@
                 id ="okved"
                 name="okved"
                 class="form-input"
-                placeholder="--...формат--"
+                value="{{ employee['okved'] }}"
                 required
                 autocomplete ="off"
             >
@@ -316,7 +311,7 @@
                 id ="okpo"
                 name="okpo"
                 class="form-input"
-                placeholder="--формат цифры--"
+                value="{{ employee['okpo'] }}"
                 required
                 autocomplete ="off"
             >
@@ -331,7 +326,7 @@
                 id ="current_account"
                 name="current_account"
                 class="form-input"
-                placeholder="--формат цифры--"
+                value="{{ employee['current_account'] }}"
                 required
                 autocomplete ="off"
             >
@@ -346,7 +341,7 @@
                 id ="bank"
                 name="bank"
                 class="form-input"
-                placeholder="--в каком банке счет--"
+                value="{{ employee['bank'] }}"
                 required
                 autocomplete ="off"
             >
@@ -361,7 +356,7 @@
                 id ="correspondent_account"
                 name="correspondent_account"
                 class="form-input"
-                placeholder="--формат цифры--"
+                value="{{ employee['correspondent_account'] }}"
                 required
                 autocomplete ="off"
             >
@@ -376,7 +371,7 @@
                 id ="bik"
                 name="bik"
                 class="form-input"
-                placeholder="--формат цифры--"
+                value="{{ employee['bik'] }}"
                 required
                 autocomplete ="off"
             >
@@ -391,7 +386,7 @@
                 id ="benefit"
                 name="benefit"
                 class="form-input"
-                placeholder="--полезная информация--"
+                value="{{ employee['benefit'] }}"
                 required
                 autocomplete ="off"
             >
@@ -406,7 +401,7 @@
                 id ="additionally"
                 name="additionally"
                 class="form-input"
-                placeholder="--места размещения // техприсоединения--"
+                value="{{ employee['additionally'] }}"
                 required
                 autocomplete ="off"
             >
@@ -421,7 +416,7 @@
                 id ="fioedo"
                 name="fioedo"
                 class="form-input"
-                placeholder="--фамилия имя отчество--"
+                value="{{ employee['fioedo'] }}"
                 required
                 autocomplete ="off"
             >
@@ -436,7 +431,7 @@
                 id ="emailedo"
                 name="emailedo"
                 class="form-input"
-                placeholder="--email--"
+                value="{{ employee['emailedo'] }}"
                 required
                 autocomplete ="off"
             >
@@ -451,7 +446,7 @@
                 id ="telephonedo"
                 name="telephonedo"
                 class="form-input"
-                placeholder="--номер телефона--"
+                value="{{ employee['telephonedo'] }}"
                 required
                 autocomplete ="off"
             >
@@ -466,7 +461,7 @@
                 id ="operatoredo"
                 name="operatoredo"
                 class="form-input"
-                placeholder="--наименование//ООО 'Контур'--"
+                value="{{ employee['operatoredo'] }}"
                 required
                 autocomplete ="off"
             >
@@ -474,10 +469,10 @@
         </div>
 
 
-        <button type="submit" class="submit-btn">
-            <i class="btn-icon">✅</i>
-            Add Employee
-        </button>
+        <div class="form-actions">
+            <button type="submit" class="btn-save">Сохранить изменения</button>
+            <a href="/employees" class="btn-cancel">Отмена</a>
+        </div>
     </form>
 </div>
 {% endblock %}

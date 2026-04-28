@@ -67,16 +67,16 @@
 }
 
 .btn-delete {
-    background: #b1534a;
+    background: #9486e0;
     color: white;
 }
 
 .btn-edit:hover {
-    background: #2980b9;
+    background: #0aa18d;
 }
 
 .btn-delete:hover {
-    background: #c0392b;
+    background: #6218da;
 }
 
 /* Сообщение об отсутствии сотрудников */
@@ -298,4 +298,7 @@
   border: 1px solid transparent;
   border-radius: .25rem;
 }
+.id {
+    width: 5%;
 
+}
