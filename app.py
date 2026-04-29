@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, flash, get_flashed_messages, redirect, url_for
 import sqlite3
 import os
+from utils import date_str
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -34,11 +35,11 @@ def init_db():
             kpp INTEGER NOT NULL,
             ogrn INTEGER NOT NULL,
             okved TEXT NOT NULL,
-            okpo INTEGER NOT NULL,
-            current_account INTEGER NOT NULL,
+            okpo TEXT NOT NULL,
+            current_account TEXT NOT NULL,
             bank TEXT NOT NULL,
-            correspondent_account INTEGER NOT NULL,
-            bik INTEGER NOT NULL,
+            correspondent_account TEXT NOT NULL,
+            bik TEXT NOT NULL,
             benefit TEXT NOT NULL,
             additionally TEXT NOT NULL,
             fioedo TEXT NOT NULL,
@@ -228,6 +229,8 @@ def print_employee(employee_id):
     conn = sqlite3.connect(DATABASE)
     # conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
+    dict_thomas_of_property ={'АО':'Акционерное Общество','ООО':'Общество с ограниченной отвественностью',
+                              'ПАО':'Публичное Акционерное Общество','ИП':'Индивидуальный предприниматель'}
 
     try:
         cursor.execute("SELECT * FROM employee WHERE id = ?", (employee_id,))
@@ -247,17 +250,9 @@ def print_employee(employee_id):
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write('Данные для договора\n')
             f.write('=' * 30 + '\n')
-            f.write(f'№{employee[1]}\n')      # number_contract Номер Договора
-            f.write(f'{employee[2]}\n')     # date_contract (индекс 2)Дата Договора
-
-            if employee[3] == 'ООО':     # Форма организации кратко
-                f.write(f"Общество с ограниченной отвественностью\n")              
-            elif employee[3] == 'АО':
-                f.write(f"Акционерное Общество\n")   
-            elif employee[3] == 'ИП':
-                f.write(f"Индивидуальный предприниматель\n")
-            elif employee[3] == 'ПАО':
-                f.write(f"Публичное Акционерное Общество\n")               
+            f.write(f'№{employee[1]}\n')      # number_contract Номер 
+            f.write(f'{date_str(employee[2])}г.\n') # дата переведена в "01 января 2026г.""
+            f.write(f'{dict_thomas_of_property[employee[3]]}\n')             
             f.write(f'{employee[3]}\n')     # thomas_of_property (индекс 3) Форма организации
             f.write(f'"{employee[4]}"\n')     # name_of_the_organization(индекс 4) Наименование орг
             f.write(f'"{employee[5]}"\n')     # abbreviated_name(индекс 5) Сокращенн наим орг
@@ -283,14 +278,8 @@ def print_employee(employee_id):
             f.write('\n\n\n')
             f.write('Данные для Соглашения ЭДО\n')
             f.write('=' * 30 + '\n')
-            if employee[3] == 'ООО':     # Форма организации кратко
-                f.write(f'Общество с ограниченной отвественностью \"{employee[4]}\"\n')              
-            elif employee[3] == 'АО':
-                f.write(f"Акционерное Общество \"{employee[4]}\"\n")   
-            elif employee[3] == 'ИП':
-                f.write(f"Индивидуальный предприниматель \"{employee[4]}\"\n")
-            elif employee[3] == 'ПАО':
-                f.write(f"Публичное Акционерное Общество \"{employee[4]}\"\n")               
+            f.write(f"Публичное Акционерное Общество \"{employee[4]}\"\n")    
+            f.write(f'{dict_thomas_of_property[employee[3]]} \"{employee[4]}\"\n')         
             f.write(f'Сокращенное фирменное наименование Общества: {employee[3]} \"{employee[5]}\"\n')     # thomas_of_property (индекс 3) Форма организации
             f.write(f'Юридический адрес: {employee[12]}\n')     # legal_address (индекс 12) Юр адрес
             f.write(f'Фактический адрес: {employee[13]}\n')     # psihical_address (индекс 13) Физ адрес
@@ -313,6 +302,9 @@ def print_employee(employee_id):
             f.write(f'{employee[28]}\n')     # emailedo (индекс 28) Почта ЭДО
             f.write(f'{employee[29]}\n')     # telephonedo (индекс 29) Тлф ЭДО
             f.write(f'{employee[30]}\n')     # operatoredo (индекс 30) Оператор ЭДО
+            f.write('\n\n\n')
+            f.write(f'{dict_thomas_of_property[employee[3]]} \"{employee[4]}\" (сокращенное фирменоое наименование {employee[3]} \"{employee[5]}\", в лице {employee[10]} {employee[8]}, действующего на основании {employee[11]}')
+            
 
 
 
