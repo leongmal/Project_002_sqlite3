@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, get_flashed_messages, redirect, url_for
 import sqlite3
 import os
-from utils import date_str
+from utils import date_str, edo_context
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -275,37 +275,64 @@ def print_employee(employee_id):
             f.write(f'{employee[23]}\n')     # correspondent_account (индекс 23) Коресп счет
             f.write(f'{employee[24]}\n')     # bik (индекс 3) БИК
             f.write(f'{employee[15]}\n')     # tlf (индекс 15) Контактный телефон
-            f.write('\n\n\n')
-            f.write('Данные для Соглашения ЭДО\n')
-            f.write('=' * 30 + '\n')
-            f.write(f"Публичное Акционерное Общество \"{employee[4]}\"\n")    
-            f.write(f'{dict_thomas_of_property[employee[3]]} \"{employee[4]}\"\n')         
-            f.write(f'Сокращенное фирменное наименование Общества: {employee[3]} \"{employee[5]}\"\n')     # thomas_of_property (индекс 3) Форма организации
-            f.write(f'Юридический адрес: {employee[12]}\n')     # legal_address (индекс 12) Юр адрес
-            f.write(f'Фактический адрес: {employee[13]}\n')     # psihical_address (индекс 13) Физ адрес
-            f.write(f'ИНН {employee[16]}  КПП {employee[17]}\n')     # psihical_address (индекс 13) ИНН КПП
-            f.write(f'ОГРН {employee[18]}\n')     # ogrn (индекс 18) ОГРН потреб
-            f.write(f'ОКВЭД {employee[19]}\n')     # okved (индекс 19) ОКВЭД потреб
-            f.write(f'ОКПО {employee[20]}\n')     # okpo (индекс 20) ОКПО потреб
-            f.write(f"Банковские реквизиты:\n")
-            f.write(f'Расчетный счет {employee[21]}\n')     # current_account(индекс 21) Расч счет потреб
-            f.write(f'{employee[22]}\n')     # bank (индекс 22) БАНК потреб
-            f.write(f'Кор. счет {employee[23]}\n')     # correspondent_account (индекс 23) Коресп счет
-            f.write(f'БИК {employee[24]}\n')     # bik (индекс 3) БИК
-            f.write(f'Контактный телефон {employee[15]}\n')     # phone_namber (индекс 15) Контактный телефон
-            f.write('\n\n\n')
-            f.write(f'{employee[3]} \"{employee[5]}\"\n') 
-            f.write(f'{employee[9]}\n')     # position (индекс 9) Должность
-            f.write(f'/{employee[6]}/\n')     # fio (индекс 6) Фамилия Имя Отчество
-            f.write('\n\n\n')
-            f.write(f'{employee[27]}\n')     # fioedo (индекс 27) ФИО ЭДО
-            f.write(f'{employee[28]}\n')     # emailedo (индекс 28) Почта ЭДО
-            f.write(f'{employee[29]}\n')     # telephonedo (индекс 29) Тлф ЭДО
-            f.write(f'{employee[30]}\n')     # operatoredo (индекс 30) Оператор ЭДО
-            f.write('\n\n\n')
-            f.write(f'{dict_thomas_of_property[employee[3]]} \"{employee[4]}\" (сокращенное фирменоое наименование {employee[3]} \"{employee[5]}\", в лице {employee[10]} {employee[8]}, действующего на основании {employee[11]}')
-            
-
+            # f.write('\n\n\n')
+            # f.write('Данные для Соглашения ЭДО\n')
+            # f.write('=' * 30 + '\n')
+            # f.write(f'{dict_thomas_of_property[employee[3]]} \"{employee[4]}\"\n')         
+            # f.write(f'Сокращенное фирменное наименование Общества: {employee[3]} \"{employee[5]}\"\n')     # thomas_of_property (индекс 3) Форма организации
+            # f.write(f'Юридический адрес: {employee[12]}\n')     # legal_address (индекс 12) Юр адрес
+            # f.write(f'Фактический адрес: {employee[13]}\n')     # psihical_address (индекс 13) Физ адрес
+            # f.write(f'ИНН {employee[16]}  КПП {employee[17]}\n')     # psihical_address (индекс 13) ИНН КПП
+            # f.write(f'ОГРН {employee[18]}\n')     # ogrn (индекс 18) ОГРН потреб
+            # f.write(f'ОКВЭД {employee[19]}\n')     # okved (индекс 19) ОКВЭД потреб
+            # f.write(f'ОКПО {employee[20]}\n')     # okpo (индекс 20) ОКПО потреб
+            # f.write(f"Банковские реквизиты:\n")
+            # f.write(f'Расчетный счет {employee[21]}\n')     # current_account(индекс 21) Расч счет потреб
+            # f.write(f'{employee[22]}\n')     # bank (индекс 22) БАНК потреб
+            # f.write(f'Кор. счет {employee[23]}\n')     # correspondent_account (индекс 23) Коресп счет
+            # f.write(f'БИК {employee[24]}\n')     # bik (индекс 24) БИК
+            # f.write(f'Контактный телефон {employee[15]}\n')     # phone_namber (индекс 15) Контактный телефон
+            # f.write('\n\n\n')
+            # f.write(f'{employee[3]} \"{employee[5]}\"\n') 
+            # f.write(f'{employee[9]}\n')     # position (индекс 9) Должность
+            # f.write(f'/{employee[6]}/\n')     # fio (индекс 6) Фамилия Имя Отчество
+            # f.write('\n\n\n')
+            # f.write(f'{employee[27]}\n')     # fioedo (индекс 27) ФИО ЭДО
+            # f.write(f'{employee[28]}\n')     # emailedo (индекс 28) Почта ЭДО
+            # f.write(f'{employee[29]}\n')     # telephonedo (индекс 29) Тлф ЭДО
+            # f.write(f'{employee[30]}\n')     # operatoredo (индекс 30) Оператор ЭДО
+            # f.write('\n\n\n')
+            # f.write(f'{dict_thomas_of_property[employee[3]]} \"{employee[4]}\" (сокращенное фирменоое наименование {employee[3]} \"{employee[5]}\", в лице {employee[10]} {employee[8]}, действующего на основании {employee[11]}')
+        context = {'number_contract': employee[1],
+                   'date_contract' : date_str(employee[2]),
+                   'date' : employee[2],
+                   'thomas_of_property_full' : dict_thomas_of_property[employee[3]],
+                   'thomas_of_property' : employee[3],
+                   'name_of_the_organization' : employee[4],
+                   'abbreviated_name' : employee[5],
+                   'rpposition' : employee[10],
+                   'rpfio' : employee[8],
+                   'regulation' : employee[11],
+                   'operatoredo' : employee[30],
+                   'fioedo' : employee[27],
+                   'telephonedo' : employee[29],
+                   'emailedo' : employee[28],
+                   'legal_address' : employee[12],
+                   'psihical_address' : employee[13],
+                   'inn' : employee[16],
+                   'kpp' : employee[17],
+                   'ogrn' : employee[18],
+                   'okved' : employee[19],
+                   'okpo' : employee[20],
+                   'current_account' : employee[21],
+                   'bank' : employee[22],
+                   'correspondent_account' : employee[23],
+                   'bik' : employee[24],
+                   'phone_number' : employee[15],
+                   'position' : employee[9],
+                   'fio' : employee[6]
+                   }  
+        edo_context(context)
 
 
 

@@ -1,3 +1,5 @@
+from docxtpl import DocxTemplate
+
 def date_str(str_dt):
     monh_dict = {
         "01":"января", "02":"февраля","03":"марта",
@@ -10,6 +12,8 @@ def date_str(str_dt):
     return f"{day} {monh_dict[monh]} {year}"
 
 
-#     print(f"{day} {monh_dict[monh]} {year}")
+def edo_context(context):
+    doc = DocxTemplate('О Договоре/Соглашение ЭДО - ШАБЛОН.docx')
+    doc.render(context)
+    return doc.save("О Договоре/Соглашение ЭДО {0}.docx".format(context['abbreviated_name']))
 
-# date_str('01.02.2026')
