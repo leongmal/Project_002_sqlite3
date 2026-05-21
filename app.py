@@ -229,7 +229,7 @@ def print_employee(employee_id):
     conn = sqlite3.connect(DATABASE)
     # conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    dict_thomas_of_property ={'АО':'Акционерное Общество','ООО':'Общество с ограниченной отвественностью',
+    dict_thomas_of_property ={'АО':'Акционерное Общество','ООО':'Общество с ограниченной ответственностью',
                               'ПАО':'Публичное Акционерное Общество','ИП':'Индивидуальный предприниматель'}
 
     try:
@@ -262,6 +262,7 @@ def print_employee(employee_id):
             f.write(f'{employee[8]}\n')     # rpfio (индекс 8 Фамилия Имя Отчество р.п.
             f.write(f'{employee[11]}\n')     # regulation (индекс 11) дейтв. на оновании
             f.write(f'{employee[14]}\n')     # mail (индекс 14) почта потреб
+            f.write(f"office@es.kzgroup.ru\n")
             f.write(f' {employee[2]}\n')     # date_contract (индекс 2) вступает в силу с ..
             f.write(f"31.12.2026 года\n")
             f.write(f"АРБП\n")
@@ -269,11 +270,11 @@ def print_employee(employee_id):
             f.write(f'{employee[13]}\n')     # psihical_address (индекс 13) Физ адрес
             f.write(f'{employee[16]}\n')     # inn (индекс 16) ИНН потреб
             f.write(f'{employee[17]}\n')     # kpp (индекс 17) КПП потреб
-            f.write(f'{employee[18]}\n')     # ogrn (индекс 18) ОГРН потреб
-            f.write(f'{employee[21]}\n')     # current_account(индекс 21) Расч счет потреб
+            f.write(f"'{employee[18]}\n")     # ogrn (индекс 18) ОГРН потреб
+            f.write(f"'{employee[21]}\n")     # current_account(индекс 21) Расч счет потреб
             f.write(f'{employee[22]}\n')     # bank (индекс 22) БАНК потреб
-            f.write(f'{employee[23]}\n')     # correspondent_account (индекс 23) Коресп счет
-            f.write(f'{employee[24]}\n')     # bik (индекс 3) БИК
+            f.write(f"'{employee[23]}\n")     # correspondent_account (индекс 23) Коресп счет
+            f.write(f"'{employee[24]}\n")     # bik (индекс 3) БИК
             f.write(f'{employee[15]}\n')     # tlf (индекс 15) Контактный телефон
             # f.write('\n\n\n')
             # f.write('Данные для Соглашения ЭДО\n')
