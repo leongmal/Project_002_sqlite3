@@ -1,4 +1,9 @@
 from docxtpl import DocxTemplate
+import re
+
+"""удаляю недопустимые знаки в названии файла меняя на нижнее подчеркивание"""
+def clean_filename(name: str) -> str:
+    return re.sub(r'[<>:"/\\|?*]', '_', name)
 
 def date_str(str_dt):
     monh_dict = {
@@ -15,5 +20,5 @@ def date_str(str_dt):
 def edo_context(context):
     doc = DocxTemplate('О Договоре/Соглашение ЭДО - ШАБЛОН.docx')
     doc.render(context)
-    return doc.save("О Договоре/Соглашение ЭДО {0}.docx".format(context['abbreviated_name']))
+    return doc.save("О Договоре/Соглашение ЭДО {0}.docx".format(clean_filename(context['abbreviated_name'])))
 
