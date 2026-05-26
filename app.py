@@ -31,7 +31,7 @@ def init_db():
             physical_address TEXT NOT NULL,
             mail TEXT NOT NULL,
             phone_number TEXT NOT NULL,
-            inn INTEGER NOT NULL,
+            inn TEXT NOT NULL,
             kpp INTEGER NOT NULL,
             ogrn INTEGER NOT NULL,
             okved TEXT NOT NULL,
