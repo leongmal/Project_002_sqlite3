@@ -18,7 +18,17 @@ def date_str(str_dt):
 
 
 def edo_context(context):
-    doc = DocxTemplate('О Договоре/Соглашение ЭДО - ШАБЛОН.docx')
+    doc = DocxTemplate('О Договоре/Шаблоны/ДС замена стороны Договора-ШАБЛОН.docx')
+    doc.render(context)
+    doc.save("О Договоре/Замена стороны {0}.docx".format(clean_filename(context['abbreviated_name'])))
+
+
+    doc = DocxTemplate('О Договоре/Шаблоны/Прил №2 Точки поставки - ШАБЛОН.docx')
+    doc.render(context)
+    doc.save("О Договоре/Прил №2 Точки поставки {0}.docx".format(clean_filename(context['abbreviated_name'])))
+
+
+    doc = DocxTemplate('О Договоре/Шаблоны/Соглашение ЭДО - ШАБЛОН.docx')
     doc.render(context)
     return doc.save("О Договоре/Соглашение ЭДО {0}.docx".format(clean_filename(context['abbreviated_name'])))
 

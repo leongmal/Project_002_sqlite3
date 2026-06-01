@@ -331,7 +331,8 @@ def print_employee(employee_id):
                    'bik' : employee[24],
                    'phone_number' : employee[15],
                    'position' : employee[9],
-                   'fio' : employee[6]
+                   'fio' : employee[6],
+                   'fioabbr' : employee[7]
                    }  
         edo_context(context)
 
