@@ -106,3 +106,5 @@ if __name__ == "__main__":
         print("⚠️ Таблица employee не существует. Запустите init_db() из вашего app.py.")
     else:
         insert_company(company_data)
+
+###DELETE FROM employee WHERE id = 17; 
