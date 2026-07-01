@@ -1,5 +1,5 @@
 from docxtpl import DocxTemplate
-import re
+import re , os
 
 """удаляю недопустимые знаки в названии файла меняя на нижнее подчеркивание"""
 def clean_filename(name: str) -> str:
@@ -16,19 +16,28 @@ def date_str(str_dt):
     day, monh, year = list_date
     return f"{day} {monh_dict[monh]} {year}"
 
+path = r'C:\Users\Leonik\AppData\Local\Programs\Python\Python312\Project_002_sqlite3\О Договоре\result'
 
 def edo_context(context):
     doc = DocxTemplate('О Договоре/Шаблоны/ДС замена стороны Договора-ШАБЛОН.docx')
     doc.render(context)
-    doc.save("О Договоре/Замена стороны {0}.docx".format(clean_filename(context['abbreviated_name'])))
+    doc.save("О Договоре/result/Замена стороны {0}.docx".format(clean_filename(context['abbreviated_name'])))
 
 
     doc = DocxTemplate('О Договоре/Шаблоны/Прил №2 Точки поставки - ШАБЛОН.docx')
     doc.render(context)
-    doc.save("О Договоре/Прил №2 Точки поставки {0}.docx".format(clean_filename(context['abbreviated_name'])))
+    doc.save("О Договоре/result/Прил №2 Точки поставки {0}.docx".format(clean_filename(context['abbreviated_name'])))
 
 
     doc = DocxTemplate('О Договоре/Шаблоны/Соглашение ЭДО - ШАБЛОН.docx')
     doc.render(context)
-    return doc.save("О Договоре/Соглашение ЭДО {0}.docx".format(clean_filename(context['abbreviated_name'])))
+    doc.save("О Договоре/result/Соглашение ЭДО {0}.docx".format(clean_filename(context['abbreviated_name'])))
+    
+    doc = DocxTemplate('О Договоре/Шаблоны/ДС об изм реквизитов -ШАБЛОН.docx')
+    doc.render(context)
+    doc.save("О Договоре/result/ДС изм_реквз {0}.docx".format(clean_filename(context['abbreviated_name'])))
+    
+    return os.startfile(path)
+    
+    
 
