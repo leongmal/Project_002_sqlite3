@@ -28,10 +28,13 @@ def edo_context(context):
     doc.render(context)
     doc.save("О Договоре/result/Прил №2 Точки поставки {0}.docx".format(clean_filename(context['abbreviated_name'])))
 
-
-    doc = DocxTemplate('О Договоре/Шаблоны/Соглашение ЭДО - ШАБЛОН.docx')
+    doc = DocxTemplate('О Договоре/Шаблоны/Приложение №10 - ШАБЛОН.docx')
     doc.render(context)
-    doc.save("О Договоре/result/Соглашение ЭДО {0}.docx".format(clean_filename(context['abbreviated_name'])))
+    doc.save("О Договоре/result/Приложение №10 {0}.docx".format(clean_filename(context['abbreviated_name'])))
+
+    #doc = DocxTemplate('О Договоре/Шаблоны/Соглашение ЭДО - ШАБЛОН.docx')
+    #doc.render(context)
+    #doc.save("О Договоре/result/Соглашение ЭДО {0}.docx".format(clean_filename(context['abbreviated_name'])))
     
     doc = DocxTemplate('О Договоре/Шаблоны/ДС об изм реквизитов -ШАБЛОН.docx')
     doc.render(context)

@@ -276,6 +276,13 @@ def print_employee(employee_id):
             f.write(f"'{employee[23]}\n")     # correspondent_account (индекс 23) Коресп счет
             f.write(f"'{employee[24]}\n")     # bik (индекс 3) БИК
             f.write(f'{employee[15]}\n')     # tlf (индекс 15) Контактный телефон
+            f.write(f'{employee[27]}\n')     # fioedo (индекс 27) Ответственный за ЭДО
+            f.write(f'{employee[29]}\n')     # telephonedo (индекс 29) Телефон по ЭДО
+            f.write(f'{employee[28]}\n')     # emailedo (индекс 28) Адрес электронной почты ЭДО 
+            f.write(f'{employee[30]}\n')     # operatoredo (индекс 30) Доверенный Оператор ЭДО 
+            f.write(f'{employee[19]}\n')     # inn (индекс 19) ОКВЕД потреб
+            f.write(f'{employee[20]}\n')     # inn (индекс 20) ОКПО потреб
+            
             
         context = {'number_contract': employee[1],
                    'date_contract' : date_str(employee[2]),
@@ -305,7 +312,8 @@ def print_employee(employee_id):
                    'phone_number' : employee[15],
                    'position' : employee[9],
                    'fio' : employee[6],
-                   'fioabbr' : employee[7]
+                   'fioabbr' : employee[7],
+                   'mail' : employee[14]
                    }  
         edo_context(context)
 

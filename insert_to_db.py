@@ -1,21 +1,31 @@
 # insert_to_db.py
+
 import sqlite3
 import os
 from config_data import company_data
 
-DATABASE = 'employee.db'   # путь к вашей БД
+DATABASE = 'employee.db'
+
+def check_table_exists():
+    """Проверяет, существует ли таблица employee"""
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+    # Используем DESC для надежности, если вдруг есть таблицы с похожими именами
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'")
+    exists = cursor.fetchone() is not None
+    conn.close()
+    return exists
 
 def insert_company(data):
-    """Вставляет данные компании в таблицу employee"""
+    """Вставляет данные компании в таблицу employee, игнорируя дубликаты по ИНН"""
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     
-    # physical_address = legal_address
     physical_address = data['legal_address']
     
     try:
         cursor.execute('''
-            INSERT INTO employee (
+            INSERT OR IGNORE INTO employee (
                 number_contract,
                 date_contract,
                 thomas_of_property,
@@ -79,32 +89,24 @@ def insert_company(data):
             data['telephonedo'],
             data['operatoredo']
         ))
+        
         conn.commit()
-        print("✅ Данные успешно вставлены в таблицу employee")
-    except sqlite3.IntegrityError as e:
-        print(f"❌ Ошибка целостности: {e}")
-        conn.rollback()
+        
+        if conn.total_changes > 0:
+            print("✅ Данные успешно вставлены в таблицу employee")
+        else:
+            print(f"⚠️ Запись пропущена. Компания с ИНН {data.get('inn')} уже существует.")
+            
     except sqlite3.Error as e:
         print(f"❌ Ошибка БД: {e}")
         conn.rollback()
     finally:
         conn.close()
 
-def check_table_exists():
-    """Проверяет, существует ли таблица employee"""
-    conn = sqlite3.connect(DATABASE)
-    cursor = conn.cursor()
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'")
-    exists = cursor.fetchone() is not None
-    conn.close()
-    return exists
-
 if __name__ == "__main__":
     if not os.path.exists(DATABASE):
-        print(f"⚠️ База данных {DATABASE} не найдена. Сначала создайте её через ваше Flask-приложение или init_db().")
-    elif not check_table_exists():
-        print("⚠️ Таблица employee не существует. Запустите init_db() из вашего app.py.")
+        print(f"⚠️ База данных {DATABASE} не найдена...")
+    elif not check_table_exists():  # Теперь Python знает об этой функции
+        print("⚠️ Таблица employee не существует...")
     else:
         insert_company(company_data)
-
-###DELETE FROM employee WHERE id = 17; 

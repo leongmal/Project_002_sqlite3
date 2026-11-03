@@ -1,0 +1,6 @@
+utils.py - меняет формат даты взятый и БД для вставки в Шаблоны
+ishodnik_config_data.py - запасной файл, дубль config_data.py
+insert_to_db.py - вносит в БД данные из config_data
+deliting_by_id.py - удаляет данные из БД по номеру id
+app.py - запуск сервера 127.0.0.1:5000
+sql_read_db.py  - чтение всех потребителей из базы
